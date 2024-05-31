@@ -6,3 +6,9 @@
   border-radius: 6px;
   padding: 20px 40px;
 }
+@media screen and (max-width: 800px) {
+    .mainView{
+        width: 80%;
+        font-size: 20px;
+    }
+}
