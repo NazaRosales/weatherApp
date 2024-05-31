@@ -1,0 +1,8 @@
+.mainView {
+  width: 35%;
+  background-image: linear-gradient(#176f97, #f1f1f1);
+  color: #333;
+  font-size: 24px;
+  border-radius: 6px;
+  padding: 20px 40px;
+}
