@@ -30,6 +30,7 @@ export default function MainView() {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           const filteredData = {
             location: data?.name,
             celsiusTemp: data?.main?.feels_like.toFixed(2),
@@ -70,14 +71,16 @@ export default function MainView() {
           <div className={styles.lang} onClick={handleLangChange}>
             {lang}
           </div>
-          <p>
-            {unity === CELCIUS_MODE
-              ? weatherData?.celsiusTemp + CELCIUS_MODE
-              : weatherData?.farentheinTemp + FARENHEINT_MODE}
-          </p>
-          <button onClick={handleUnityChange}>
-            {unity === CELCIUS_MODE ? FARENHEINT_MODE : CELCIUS_MODE}{" "}
-          </button>
+          <div className={styles.tempInfo}>
+            <p>
+              {unity === CELCIUS_MODE
+                ? weatherData?.celsiusTemp + CELCIUS_MODE
+                : weatherData?.farentheinTemp + FARENHEINT_MODE}
+            </p>
+            <div className={styles.tempBtn} onClick={handleUnityChange}>
+              <p>{unity === CELCIUS_MODE ? FARENHEINT_MODE : CELCIUS_MODE} </p>
+            </div>
+          </div>
           <p>Humedad: {weatherData?.humidity}%</p>
           <p>
             {weatherData?.weather?.charAt(0).toUpperCase() +

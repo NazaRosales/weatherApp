@@ -24,7 +24,28 @@
   width: 20px;
   height: 20px;
 }
-.lang:hover{
+.lang:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.tempInfo {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tempInfo p {
+  margin: 0 10px 0 0;
+  padding: 0;
+}
+.tempBtn{
+  border-radius: 2px;
+}
+.tempBtn p {
+  font-weight: 400;
+}
+.tempBtn:hover {
   cursor: pointer;
   text-decoration: underline;
 }
