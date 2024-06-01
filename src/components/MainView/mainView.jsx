@@ -5,18 +5,24 @@ export default function MainView() {
   const EN_MODE = "EN";
   const CELCIUS_MODE = "ºC";
   const FARENHEINT_MODE = "ºF";
-
-  const [location, setLocation] = useState({});
-  const [weatherData, setWeatherData] = useState({});
-  const [unity, setUnity] = useState(CELCIUS_MODE);
-  const [lang, setLang] = useState(ES_MODE);
   const BASE_URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [location, setLocation] = useState({});
+  const [weatherData, setWeatherData] = useState({});
+  const [lang, setLang] = useState(ES_MODE);
+  const [unity, setUnity] = useState(CELCIUS_MODE);
 
   useEffect(() => {
     getLocation();
   }, []);
 
+  useEffect(() => {
+    if (weatherData.location) {
+      setIsLoading(false);
+    }
+  }, [weatherData]);
   useEffect(() => {
     if (location.lon && location.lat) {
       fetch(
@@ -24,7 +30,6 @@ export default function MainView() {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const filteredData = {
             location: data?.name,
             celsiusTemp: data?.main?.feels_like.toFixed(2),
@@ -35,6 +40,7 @@ export default function MainView() {
           };
           setWeatherData(filteredData);
         });
+      weatherData.location && setIsLoading(false);
     }
   }, [location, lang]);
 
@@ -56,25 +62,31 @@ export default function MainView() {
   };
   return (
     <>
-      <section className={styles.mainView}>
-        <h1>{weatherData?.location}</h1>
-        <div className={styles.lang} onClick={handleLangChange}>
-          {lang}
-        </div>
-        <p>
-          {unity === CELCIUS_MODE
-            ? weatherData?.celsiusTemp + CELCIUS_MODE
-            : weatherData?.farentheinTemp + FARENHEINT_MODE}
-        </p>
-        <button onClick={handleUnityChange}> {unity} </button>
-        <p>Humedad: {weatherData?.humidity}%</p>
-        <p>
-          {weatherData?.weather?.charAt(0).toUpperCase() +
-            weatherData?.weather?.slice(1).toLowerCase() +
-            "."}
-        </p>
-        <p>Viento: {weatherData?.windSpeed}</p>
-      </section>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <section className={styles.mainView}>
+          <h1>{weatherData?.location}</h1>
+          <div className={styles.lang} onClick={handleLangChange}>
+            {lang}
+          </div>
+          <p>
+            {unity === CELCIUS_MODE
+              ? weatherData?.celsiusTemp + CELCIUS_MODE
+              : weatherData?.farentheinTemp + FARENHEINT_MODE}
+          </p>
+          <button onClick={handleUnityChange}>
+            {unity === CELCIUS_MODE ? FARENHEINT_MODE : CELCIUS_MODE}{" "}
+          </button>
+          <p>Humedad: {weatherData?.humidity}%</p>
+          <p>
+            {weatherData?.weather?.charAt(0).toUpperCase() +
+              weatherData?.weather?.slice(1).toLowerCase() +
+              "."}
+          </p>
+          <p>Viento: {weatherData?.windSpeed}</p>
+        </section>
+      )}
     </>
   );
 }
