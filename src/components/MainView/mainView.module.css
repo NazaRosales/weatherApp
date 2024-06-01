@@ -41,13 +41,14 @@
 }
 .tempBtn{
   border-radius: 2px;
+  background-color: #9fd1ff86;
+  padding: 0 3px;
 }
 .tempBtn p {
   font-weight: 400;
 }
 .tempBtn:hover {
   cursor: pointer;
-  text-decoration: underline;
 }
 @media screen and (max-width: 900px) {
   .mainView {
