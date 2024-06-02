@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./nextDays.module.css";
-import NextDaysCard from "../NextDaysCard/nextDaysCard";
+import NextDaysCard from "../NextsDaysCard/nextDaysCard";
 const API_KEY = import.meta.env.VITE_API_KEY;
 export default function NextDays() {
   const [isLoading, setIsLoading] = useState(true);
