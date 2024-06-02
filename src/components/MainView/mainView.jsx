@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./mainView.module.css";
+import { StoreContext } from "../../store/storeProvider";
+import { types } from "../../store/storeReducer";
 export default function MainView() {
   const ES_MODE = "ES";
   const EN_MODE = "EN";
@@ -8,8 +10,9 @@ export default function MainView() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
 
+  const [store, dispatch] = useContext(StoreContext);
+  const { location } = store;
   const [isLoading, setIsLoading] = useState(true);
-  const [location, setLocation] = useState({});
   const [weatherData, setWeatherData] = useState({});
   const [lang, setLang] = useState(ES_MODE);
   const [unity, setUnity] = useState(CELCIUS_MODE);
@@ -24,7 +27,7 @@ export default function MainView() {
     }
   }, [weatherData]);
   useEffect(() => {
-    if (location.lon && location.lat) {
+    if (location.lat || location.lon) {
       fetch(
         `${BASE_URL}?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}&lang=${lang}&units=metric`
       )
@@ -47,9 +50,12 @@ export default function MainView() {
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setLocation({
-          lat: position.coords.latitude.toString(),
-          lon: position.coords.longitude.toString(),
+        dispatch({
+          type: types.SET_LOCATION,
+          payload: {
+            lat: position.coords.latitude.toString(),
+            lon: position.coords.longitude.toString(),
+          },
         });
       });
     }
