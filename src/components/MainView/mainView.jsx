@@ -30,7 +30,6 @@ export default function MainView() {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           const filteredData = {
             location: data?.name,
             celsiusTemp: data?.main?.feels_like.toFixed(2),
