@@ -35,8 +35,8 @@ export default function MainView() {
         .then((data) => {
           const filteredData = {
             location: data?.name,
-            celsiusTemp: data?.main?.feels_like.toFixed(2),
-            farentheinTemp: ((data?.main?.feels_like * 9) / 5 + 32).toFixed(2),
+            celsiusTemp: Math.round(data?.main?.feels_like),
+            farentheinTemp: Math.round((data?.main?.feels_like * 9) / 5 + 32),
             humidity: data?.main?.humidity,
             weather: data?.weather[0].description,
             windSpeed: data?.wind?.speed,
