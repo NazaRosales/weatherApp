@@ -16,18 +16,25 @@ export default function NextDays() {
       .then((res) => res.json())
       .then((data) => {
         setUpcoming(data?.list);
+        setIsLoading(false);
       });
   }, [store]);
   return (
-    <section className={styles.container}>
-      {upcoming.length > 0 &&
-        upcoming.map((data, index) => (
-          <NextDaysCard
-            key={data?.dt + index}
-            temp={data?.main.feels_like}
-            description={data?.weather[0]?.description}
-          />
-        ))}
-    </section>
+    <>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <section className={styles.container}>
+          {upcoming.length > 0 &&
+            upcoming.map((data, index) => (
+              <NextDaysCard
+                key={data?.dt + index}
+                temp={data?.main.feels_like}
+                description={data?.weather[0]?.description}
+              />
+            ))}
+        </section>
+      )}
+    </>
   );
 }

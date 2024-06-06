@@ -17,17 +17,6 @@
   font-size: 18px;
   font-weight: 600;
 }
-.lang {
-  position: absolute;
-  top: 10px;
-  right: 50px;
-  width: 20px;
-  height: 20px;
-}
-.lang:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
 .tempInfo {
   margin: 0;
   padding: 0;
