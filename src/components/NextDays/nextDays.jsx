@@ -8,12 +8,15 @@ export default function NextDays() {
   const [isLoading, setIsLoading] = useState(true);
   const [upcoming, setUpcoming] = useState([]);
   const [store, dispatch] = useContext(StoreContext);
-  const { lat, lon } = store.location;
 
   useEffect(() => {
-    fetch(`${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+    const { lat, lon } = store.location;
+    console.log("LAT", lat);
+    console.log("LON", lon);
+    fetch(`${BASE_URL}forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUpcoming(data?.list);
         setIsLoading(false);
       });
@@ -24,14 +27,18 @@ export default function NextDays() {
         <p>Loading...</p>
       ) : (
         <section className={styles.container}>
-          {upcoming.length > 0 &&
-            upcoming.map((data, index) => (
-              <NextDaysCard
-                key={data?.dt + index}
-                temp={data?.main.feels_like}
-                description={data?.weather[0]?.description}
-              />
-            ))}
+          {upcoming.map((item, index) => (
+            <NextDaysCard
+              key={index + item.dt_txt}
+              date={item.dt_txt}
+              temp={item.main.temp}
+              feels_like={item.main.feels_like}
+              weather={item.weather[0].description}
+              wind_speed={item.wind.speed}
+              visibility={item.visibility}
+              rain={item.rain}
+            />
+          ))}
         </section>
       )}
     </>

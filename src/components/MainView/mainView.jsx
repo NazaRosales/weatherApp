@@ -99,7 +99,7 @@ export default function MainView() {
               "."}
           </p>
           <p>Humidity: {weatherData?.humidity}%</p>
-          <p>Wind: {weatherData?.windSpeed}</p>
+          <p>Wind speed: {weatherData?.windSpeed}m/s</p>
         </section>
       )}
     </>
