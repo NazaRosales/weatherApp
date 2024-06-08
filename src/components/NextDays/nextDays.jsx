@@ -3,6 +3,7 @@ import styles from "./nextDays.module.css";
 import NextDaysCard from "../NextDaysCard/nextDaysCard";
 import { StoreContext } from "../../store/storeProvider";
 const API_KEY = import.meta.env.VITE_API_KEY;
+const BASE_URL = import.meta.env.VITE_API_URL;
 export default function NextDays() {
   const [isLoading, setIsLoading] = useState(true);
   const [upcoming, setUpcoming] = useState([]);
@@ -10,9 +11,7 @@ export default function NextDays() {
   const { lat, lon } = store.location;
 
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
-    )
+    fetch(`${BASE_URL}/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
       .then((res) => res.json())
       .then((data) => {
         setUpcoming(data?.list);

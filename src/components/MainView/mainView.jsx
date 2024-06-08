@@ -24,7 +24,7 @@ export default function MainView() {
     try {
       if (location.lat || location.lon) {
         fetch(
-          `${BASE_URL}?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}&units=metric`
+          `${BASE_URL}weather?lat=${location.lat}&lon=${location.lon}&appid=${API_KEY}&units=metric`
         )
           .then((res) => res.json())
           .then((data) => {
