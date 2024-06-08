@@ -13,7 +13,7 @@ export default function NextDays() {
     const { lat, lon } = store.location;
     console.log("LAT", lat);
     console.log("LON", lon);
-    fetch(`${BASE_URL}forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+    fetch(`${BASE_URL}forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -31,8 +31,7 @@ export default function NextDays() {
             <NextDaysCard
               key={index + item.dt_txt}
               date={item.dt_txt}
-              temp={item.main.temp}
-              feels_like={item.main.feels_like}
+              temp={item.main.feels_like}
               weather={item.weather[0].description}
               wind_speed={item.wind.speed}
               visibility={item.visibility}
