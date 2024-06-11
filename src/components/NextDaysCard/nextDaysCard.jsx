@@ -14,7 +14,7 @@ export default function NextDaysCard({
   const [store, dispatch] = useContext(StoreContext);
   const [actualTemp, setActualTemp] = useState(0);
   const tempMode = store.tempMode;
-  const { CELCIUS_MODE, FARENHEINT_MODE } = types;
+  const { CELCIUS_MODE } = types;
   useEffect(() => {
     setActualTemp(tempMode === CELCIUS_MODE ? temp : (temp * 9) / 5 + 32);
   }, [tempMode]);
@@ -22,7 +22,7 @@ export default function NextDaysCard({
     <div className={styles.cardDetail}>
       <h2>{new Date(date).toLocaleString()}</h2>
       <p>Temperature: {`${Math.round(actualTemp)} ${tempMode}`} </p>
-      <p>{weather}</p>
+      <p>{weather[0].toUpperCase()+weather.slice(1)}</p>
       <p>Wind speed: {wind_speed} m/s</p>
       <p>Visibility: {visibility / 1000}km</p>
       {rain && rain["3h"] && <p>Rain volume: {rain["3h"]}mm</p>}

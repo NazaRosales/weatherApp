@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./mainView.module.css";
 import { StoreContext } from "../../store/storeProvider";
 import { types } from "../../store/storeReducer";
+import Loading from "../Loading/Loading";
 export default function MainView() {
   const BASE_URL = import.meta.env.VITE_API_URL;
   const API_KEY = import.meta.env.VITE_API_KEY;
@@ -75,7 +76,7 @@ export default function MainView() {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loading />
       ) : (
         <section className={styles.mainView}>
           <h1>{weatherData?.location}</h1>

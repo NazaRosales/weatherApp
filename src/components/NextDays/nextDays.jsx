@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "./nextDays.module.css";
 import NextDaysCard from "../NextDaysCard/nextDaysCard";
 import { StoreContext } from "../../store/storeProvider";
+import Loading from "../Loading/Loading";
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = import.meta.env.VITE_API_URL;
 export default function NextDays() {
@@ -13,7 +14,9 @@ export default function NextDays() {
     const { lat, lon } = store.location;
     console.log("LAT", lat);
     console.log("LON", lon);
-    fetch(`${BASE_URL}forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+    fetch(
+      `${BASE_URL}forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -24,7 +27,7 @@ export default function NextDays() {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <Loading />
       ) : (
         <section className={styles.container}>
           {upcoming.map((item, index) => (
